@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | Fusion Byte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --bg: #0b0b0b; --text: #e0e0e0; --accent: #00ff88; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-serif; }
+        
+        .cursor-dot, .cursor-outline { position: fixed; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 9999; }
+        .cursor-dot { width: 8px; height: 8px; background: var(--accent); top:0; left:0;}
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); top:0; left:0; transition: width 0.2s; }
+
+        nav { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); text-decoration: none; }
+        .nav-links a { color: #fff; margin-left: 2rem; text-decoration: none; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .about-section { padding: 5rem 15%; }
+        .big-text { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 2rem; color: #fff; }
+        .highlight { color: var(--accent); }
+        .bio-text { font-size: 1.2rem; color: #aaa; line-height: 1.8; margin-bottom: 2rem; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; border-top: 1px solid #333; padding-top: 2rem; }
+        .stat-item h2 { font-size: 3rem; color: var(--accent); margin-bottom: 5px; }
+        .stat-item p { color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        footer { text-align: center; padding: 2rem; border-top: 1px solid #222; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot"></div> <div class="cursor-outline"></div>
+
+    <nav>
+        <a href="index.html" class="logo">ANIKET.</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#work">Work</a>
+        </div>
+    </nav>
+
+    <div class="about-section">
+        <h1 class="big-text">Code is Poetry,<br> and I am the <span class="highlight">Poet.</span></h1>
+        
+        <p class="bio-text">
+            Hi, I'm <strong style="color:#fff">Aniket Patil</strong>, a passionate SYBCA student and the founder of <strong style="color:#fff">Fusion Byte</strong>.
+            I don't just write code; I craft digital experiences. My journey started with a curiosity for how games work, which led me to the world of C++, Python, and Web Development.
+        </p>
+        <p class="bio-text">
+            I believe in minimalist design and maximum performance. Whether it's building a complex management system or a creative portfolio, my goal is always to deliver "Pro Level" quality.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>02+</h2>
+                <p>Years Coding</p>
+            </div>
+            <div class="stat-item">
+                <h2>10+</h2>
+                <p>Projects Done</p>
+            </div>
+            <div class="stat-item">
+                <h2>100%</h2>
+                <p>Dedication</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Aniket Patil | Fusion Byte</p>
+    </footer>
+
+    <script>
+        // Cursor Script
+        const dot = document.querySelector(".cursor-dot");
+        const outline = document.querySelector(".cursor-outline");
+        window.addEventListener("mousemove", (e) => {
+            dot.style.left = e.clientX + "px"; dot.style.top = e.clientY + "px";
+            outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+        });
+    </script>
+</body>
+</html>
