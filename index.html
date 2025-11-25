@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniket Patil | Fusion Byte</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- CORE STYLES --- */
+        :root {
+            --bg-color: #0b0b0b;
+            --text-color: #e0e0e0;
+            --accent-color: #00ff88; /* Neon Green */
+            --secondary-text: #888;
+            --card-bg: #161616;
+            --skill-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-color); }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-color); transition: width 0.2s, height 0.2s; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 2rem 5%; position: fixed; width: 100%; top: 0;
+            background: rgba(11, 11, 11, 0.95); backdrop-filter: blur(10px);
+            z-index: 100; border-bottom: 1px solid #222;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent-color); letter-spacing: 1px; text-transform: uppercase; }
+        .nav-links a { color: var(--text-color); text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- HERO SECTION --- */
+        section { padding: 4rem 10%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        
+        .hero-content p.intro { font-size: 1.8rem; color: var(--text-color); margin-bottom: 1rem; font-weight: 400; }
+        .name-highlight { color: var(--accent-color); font-weight: 800; text-transform: uppercase; }
+        
+        .hero-content h1 {
+            font-size: 6rem; line-height: 1; font-weight: 800; margin-bottom: 2rem;
+            background: linear-gradient(to right, #fff, #777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
+        }
+        .hero-content p.desc { font-size: 1.2rem; color: var(--secondary-text); max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
+        
+        .btn {
+            display: inline-block; padding: 15px 40px; border: 1px solid var(--accent-color);
+            color: var(--accent-color); text-decoration: none; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s ease; width: fit-content; border-radius: 5px;
+        }
+        .btn:hover { background: var(--accent-color); color: var(--bg-color); box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
+
+        .section-title { font-size: 1rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 4rem; display: inline-block; font-weight: 600; }
+
+        /* --- MARQUEE --- */
+        .marquee-container { overflow: hidden; white-space: nowrap; padding: 2rem 0; border-top: 1px solid #333; border-bottom: 1px solid #333; margin: 0; }
+        .marquee-track { display: inline-block; animation: scroll 20s linear infinite; }
+        .marquee-item { font-size: 4rem; font-weight: 800; color: transparent; -webkit-text-stroke: 1px #444; margin: 0 2rem; display: inline-block; transition: all 0.3s; }
+        .marquee-item:hover { color: var(--accent-color); -webkit-text-stroke: 1px var(--accent-color); }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- JOURNEY / TIMELINE (OPTIMIZED) --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background-color: #333; top: 0; bottom: 0; left: 0; margin-left: 20px; }
+        .timeline-item { padding: 10px 40px 10px 60px; position: relative; background-color: inherit; width: 100%; margin-bottom: 3rem; will-change: transform, opacity; }
+        .timeline-item::after { content: ''; position: absolute; width: 16px; height: 16px; right: auto; left: 13px; background-color: var(--bg-color); border: 2px solid var(--accent-color); top: 15px; border-radius: 50%; z-index: 1; transition: background 0.3s; }
+        .timeline-item:hover::after { background-color: var(--accent-color); box-shadow: 0 0 15px var(--accent-color); }
+        .timeline-date { font-size: 0.9rem; color: var(--accent-color); margin-bottom: 0.5rem; font-weight: 600; }
+        .timeline-content h3 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .timeline-content p { color: var(--secondary-text); line-height: 1.6; font-size: 1rem; }
+        .timeline-content .school-name { font-weight: 600; color: #fff; margin-bottom: 5px; display: block; }
+
+        /* --- SKILLS GRID --- */
+        .skills-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .skill-category h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff; border-left: 3px solid var(--accent-color); padding-left: 15px; font-weight: 600; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; }
+        .skill-tag { padding: 10px 20px; background: var(--skill-bg); border: 1px solid #333; border-radius: 5px; font-size: 0.9rem; color: var(--secondary-text); transition: all 0.3s ease; font-weight: 500; }
+        .skill-tag:hover { color: var(--bg-color); background: var(--accent-color); border-color: var(--accent-color); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2); }
+
+        /* --- PROJECTS (Cards) --- */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .project-card { 
+            background: var(--card-bg); padding: 2.5rem; border: 1px solid #333; 
+            transition: transform 0.3s ease; position: relative; border-radius: 10px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            text-decoration: none; /* Removed underline from whole card */
+        }
+        .project-card:hover { border-color: var(--accent-color); transform: translateY(-10px); }
+        .project-card h3 { font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600; color: #fff; }
+        .project-card p { color: var(--secondary-text); margin-bottom: 1.5rem; line-height: 1.6; font-weight: 300; }
+        .tech-stack { display: flex; gap: 10px; font-size: 0.8rem; color: var(--accent-color); font-weight: 600; margin-bottom: 1.5rem; }
+        
+        .read-more { color: #fff; font-weight: 600; display: flex; align-items: center; gap: 10px; margin-top: auto; font-size: 0.9rem;}
+        .project-card:hover .read-more { color: var(--accent-color); }
+
+        /* --- ACHIEVEMENTS --- */
+        .achieve-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .achieve-card { background: var(--card-bg); padding: 2.5rem; border: 1px solid #333; transition: transform 0.3s ease; position: relative; overflow: hidden; border-radius: 10px;}
+        .achieve-card:hover { border-color: var(--accent-color); transform: translateY(-10px); }
+        .achieve-title { font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600; }
+        .achieve-desc { color: var(--secondary-text); font-weight: 300; }
+        .achieve-number { font-size: 4rem; font-weight: 800; color: rgba(255, 255, 255, 0.05); position: absolute; top: 10px; right: 20px; line-height: 1; }
+        .achieve-card:hover .achieve-number { color: rgba(0, 255, 136, 0.1); }
+
+        /* --- CONTACT --- */
+        footer { padding: 4rem 10%; text-align: center; border-top: 1px solid #222; }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3.5rem; }
+            section { padding: 4rem 5%; }
+            .timeline::after { left: 0px; }
+            .timeline-item { padding-left: 30px; }
+            .cursor-dot, .cursor-outline { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav>
+        <div class="logo">ANIKET.</div>
+        <div class="nav-links">
+            <a href="about.html">About</a> <a href="#skills">Skills</a>
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            <p class="intro anim-text">Hi, I am <span class="name-highlight">ANIKET PATIL</span></p>
+            <h1 class="anim-text">CREATIVE<br><span>DEVELOPER</span></h1>
+            <p class="desc anim-text">A BCA student passionate about coding, game logic, and building digital experiences.</p>
+            <a href="#skills" class="btn anim-text">See My Skills</a>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <span class="marquee-item">CODE</span>
+            <span class="marquee-item">DESIGN</span>
+            <span class="marquee-item">CREATE</span>
+            <span class="marquee-item">BUILD</span>
+            <span class="marquee-item">CODE</span>
+            <span class="marquee-item">DESIGN</span>
+            <span class="marquee-item">CREATE</span>
+            <span class="marquee-item">BUILD</span>
+        </div>
+    </div>
+
+    <section id="journey">
+        <h2 class="section-title anim-scroll">My Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item anim-scroll">
+                <div class="timeline-date">2024 - Present</div>
+                <div class="timeline-content">
+                    <h3>Bachelor of Computer Applications (BCA)</h3>
+                    <span class="school-name">College Name Goes Here</span>
+                    <p>Pursuing SYBCA. Focusing on Data Structures (C++), Python Programming, and Web Technologies.</p>
+                </div>
+            </div>
+            <div class="timeline-item anim-scroll">
+                <div class="timeline-date">2022 - 2024</div>
+                <div class="timeline-content">
+                    <h3>Higher Secondary (HSC)</h3>
+                    <span class="school-name">College/School Name Here</span>
+                    <p>Completed 12th grade with good grades, building foundational logic.</p>
+                </div>
+            </div>
+            <div class="timeline-item anim-scroll">
+                <div class="timeline-date">2021 - 2022</div>
+                <div class="timeline-content">
+                    <h3>Secondary School (SSC)</h3>
+                    <span class="school-name">School Name Here</span>
+                    <p>Completed 10th grade. Active in school computer labs and events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title anim-scroll">Technical Arsenal</h2>
+        <div class="skills-wrapper">
+            <div class="skill-category anim-scroll">
+                <h3>Languages & Core</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Data Structures</span>
+                    <span class="skill-tag">OOPs</span>
+                </div>
+            </div>
+            <div class="skill-category anim-scroll">
+                <h3>Web Development</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML5</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">GSAP Animations</span>
+                </div>
+            </div>
+            <div class="skill-category anim-scroll">
+                <h3>Tools & Creative</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Blender 3D</span>
+                    <span class="skill-tag">Unity</span>
+                    <span class="skill-tag">Git / GitHub</span>
+                    <span class="skill-tag">VS Code</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <h2 class="section-title anim-scroll">Selected Projects</h2>
+        <div class="project-grid">
+            
+            <a href="project-details.html" class="project-card anim-scroll">
+                <div>
+                    <h3>Portfolio Website</h3>
+                    <p>A pro-level portfolio using GSAP animations, Poppins typography, and dark minimalist theme.</p>
+                    <div class="tech-stack"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                </div>
+                <div class="read-more">View Case Study <i class="fas fa-arrow-right"></i></div>
+            </a>
+
+            <a href="project-details.html" class="project-card anim-scroll">
+                <div>
+                    <h3>Document Locker App</h3>
+                    <p>Secure web app to store personal documents with authentication and database.</p>
+                    <div class="tech-stack"><span>PHP/Node</span><span>SQL</span><span>Web</span></div>
+                </div>
+                <div class="read-more">View Case Study <i class="fas fa-arrow-right"></i></div>
+            </a>
+
+            <a href="project-details.html" class="project-card anim-scroll">
+                <div>
+                    <h3>3D Asset Creation</h3>
+                    <p>Designed realistic 3D models and character renders using Blender.</p>
+                    <div class="tech-stack"><span>Blender</span><span>Rendering</span></div>
+                </div>
+                <div class="read-more">View Renders <i class="fas fa-arrow-right"></i></div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2 class="section-title anim-scroll">Achievements</h2>
+        <div class="achieve-grid">
+            <div class="achieve-card anim-scroll">
+                <span class="achieve-number">01</span>
+                <h3 class="achieve-title">Hackathon Participant</h3>
+                <p class="achieve-desc">Participated in college coding hackathon solving real-world problems.</p>
+            </div>
+            <div class="achieve-card anim-scroll">
+                <span class="achieve-number">02</span>
+                <h3 class="achieve-title">Certified in Python</h3>
+                <p class="achieve-desc">Completed advanced Python programming certification.</p>
+            </div>
+            <div class="achieve-card anim-scroll">
+                <span class="achieve-number">03</span>
+                <h3 class="achieve-title">Project Lead</h3>
+                <p class="achieve-desc">Led the team for the final year academic project.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="min-height: 50vh;">
+        <h2 class="section-title anim-scroll">Ready to collaborate?</h2>
+        <div class="hero-content">
+            <h1 class="anim-scroll">LET'S WORK <br> TOGETHER</h1>
+            <p class="desc anim-scroll" style="margin-top: 20px;">
+                Have a project in mind or just want to say hi? <br>
+                Feel free to send a message.
+            </p>
+            <br>
+            <a href="mailto:fusionbyte24@gmail.com" class="btn anim-scroll">
+                <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Say Hello
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Aniket Patil | <span style="color: var(--accent-color);">Fusion Byte</span></p>
+    </footer>
+
+    <script>
+        // --- Custom Cursor Logic (Optimized) ---
+        const cursorDot = document.querySelector(".cursor-dot");
+        const cursorOutline = document.querySelector(".cursor-outline");
+
+        window.addEventListener("mousemove", (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            // Use simple style for dot (instant)
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            // Use Web Animations API for smooth outline (more performant than CSS transition)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover effect for links
+        document.querySelectorAll('a, .project-card, .timeline-item, .achieve-card, .skill-tag').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(0, 255, 136, 0.1)';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // --- GSAP Animations (Optimized for no lag) ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Load
+        const tl = gsap.timeline();
+        tl.from(".logo", { y: -20, opacity: 0, duration: 1 })
+          .from(".nav-links a", { y: -20, opacity: 0, duration: 1, stagger: 0.1 }, "-=0.5")
+          .from(".anim-text", { y: 50, opacity: 0, duration: 1, stagger: 0.2 }, "-=0.5");
+
+        // Simple Fade-Up for sections (Lighter on browser)
+        gsap.utils.toArray(".anim-scroll").forEach(element => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 30, // Reduced movement distance for smoother effect
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+        });
+
+        // Staggered Timeline (Optimized)
+        // We use batch to avoid creating too many individual triggers
+        ScrollTrigger.batch(".timeline-item", {
+            start: "top 85%",
+            onEnter: batch => gsap.to(batch, {opacity: 1, x: 0, stagger: 0.15, overwrite: true}),
+            onLeaveBack: batch => gsap.set(batch, {opacity: 0, x: -20, overwrite: true})
+        });
+        
+        // Initial set for timeline items
+        gsap.set(".timeline-item", {opacity: 0, x: -20});
+
+    </script>
+</body>
+</html>
