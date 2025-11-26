@@ -28,34 +28,43 @@
         .cursor-dot { width: 8px; height: 8px; background-color: var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99999; pointer-events: none; }
         .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99998; pointer-events: none; transition: width 0.2s, height 0.2s, background 0.2s; }
 
-        /* NAV - FIXED GREEN LINE */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0;
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
-            z-index: 1000;
-            border-bottom: 3px solid var(--accent); /* Thicker Line */
-            box-shadow: 0 5px 20px -5px var(--accent-glow);
+        /* ENTER SCREEN */
+        #enter-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: #000; z-index: 999999; 
+            display: flex; justify-content: center; align-items: center; flex-direction: column; 
+            transition: opacity 0.8s ease-out; 
         }
+        .enter-btn { 
+            padding: 20px 60px; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; 
+            color: var(--accent); border: 2px solid var(--accent); background: transparent; 
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; 
+            transition: 0.3s; position: relative; overflow: hidden; 
+        }
+        .enter-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 50px var(--accent-glow); }
+        .enter-text { margin-top: 20px; color: #666; font-size: 0.9rem; letter-spacing: 1px; }
+
+        /* NAV */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 3px solid var(--accent); box-shadow: 0 5px 20px -5px var(--accent-glow); }
         .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff !important; text-decoration: none; letter-spacing: -1px; }
         .logo span { color: var(--accent) !important; }
         .nav-links { display: flex; gap: 3rem; }
         .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* HERO */
+        /* HERO & SECTIONS */
         section { padding: 8rem 10%; position: relative; }
         #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle at 70% 30%, rgba(0,255,136,0.04) 0%, transparent 50%); }
         .name-highlight { color: var(--accent); font-weight: 800; text-transform: uppercase; }
         .hero-title { font-size: 7rem; line-height: 0.9; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; letter-spacing: -3px; font-family: 'Space Grotesk'; }
-        .hack-effect { display: inline-block; color: #fff; } /* Default White */
+        .hack-effect { display: inline-block; color: #fff; }
         .hero-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
         .cta-btn { display: inline-flex; padding: 18px 45px; background: transparent; border: 1px solid var(--accent); color: var(--accent); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s; }
-        .cta-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); z-index: -1; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .cta-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); z-index: -1; transition: 0.4s; }
         .cta-btn:hover::before { width: 100%; }
         .cta-btn:hover { color: #000; box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* TIMELINE */
+        /* TIMELINE, SKILLS, PROJECTS, FOOTER Styles */
         .section-header { margin-bottom: 4rem; }
         .section-tag { color: var(--accent); font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; display: block; margin-bottom: 10px; }
         .section-heading { font-size: 3rem; font-weight: 700; }
@@ -68,7 +77,6 @@
         .school-name { display: block; font-size: 1.1rem; color: #fff; font-weight: 600; margin-bottom: 10px; border-left: 3px solid var(--accent); padding-left: 10px; }
         .timeline-desc { color: var(--text-muted); font-size: 1rem; }
 
-        /* PROJECTS */
         .projects-container { display: grid; gap: 4rem; }
         .project-item { display: block; text-decoration: none; background: var(--card-bg); border: 1px solid #222; padding: 3rem; position: relative; transition: 0.4s; overflow: hidden; }
         .project-item:hover { transform: translateY(-5px); border-color: var(--accent); }
@@ -80,7 +88,6 @@
         .arrow-link { color: #fff; font-weight: 600; text-transform: uppercase; display: flex; align-items: center; gap: 10px; margin-top: 2rem; transition: 0.3s;}
         .project-item:hover .arrow-link { color: var(--accent); gap: 20px; }
 
-        /* SKILLS */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .skill-box { background: var(--card-bg); padding: 2rem; border: 1px solid #222; transition: 0.3s; }
         .skill-box:hover { border-color: var(--accent); transform: translateY(-5px); }
@@ -88,16 +95,11 @@
         .tech-pill { padding: 8px 15px; background: rgba(255,255,255,0.05); border-radius: 20px; color: #aaa; font-size: 0.85rem; margin-right: 5px; margin-bottom: 8px; display: inline-block; border: 1px solid transparent; transition:0.3s; }
         .skill-box:hover .tech-pill { border-color: var(--accent); color: var(--accent); }
 
-        /* CONTACT */
         #contact { text-align: center; padding: 10rem 10%; }
         .big-cta { font-size: 4rem; font-weight: 800; color: #fff; margin-bottom: 2rem; }
         .big-cta span { color: var(--accent); }
 
-        /* UPDATED FOOTER */
-        footer { 
-            padding: 3rem 8%; border-top: 1px solid #222; 
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        footer { padding: 3rem 8%; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
         .footer-left h3 { color: #888; font-size: 1rem; font-weight: 500; letter-spacing: 1px; }
         .footer-right h3 { color: #fff; font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
         .footer-right h3 span { color: var(--accent); font-size: 2rem; line-height: 0; position: relative; top: 5px;}
@@ -105,10 +107,18 @@
         @media (max-width: 768px) {
             .hero-title { font-size: 3.5rem; } .nav-links { display: none; } section { padding: 5rem 5%; }
             footer { flex-direction: column; gap: 1rem; text-align: center; } .big-num { font-size: 5rem; }
+            .cursor-dot, .cursor-outline { display: none; } * { cursor: auto; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <audio id="welcome-audio" src="intro/intro.mp3" preload="auto"></audio>
+
+    <div id="enter-screen">
+        <button class="enter-btn" onclick="enterSite()">ENTER WORLD</button>
+        <p class="enter-text">Headphones Recommended</p>
+    </div>
 
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
@@ -139,7 +149,7 @@
 
     <section id="journey">
         <div class="section-header scroll-reveal">
-            <span class="section-tag">My Path</span>
+            <span class="section-tag">MY PATH</span>
             <h2 class="section-heading">The Journey</h2>
         </div>
         <div class="timeline">
@@ -154,14 +164,14 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-year">2022 - 2024</div>
                 <h3 class="timeline-title">Higher Secondary (HSC)</h3>
-                <span class="school-name">Balmohan jr Collage , Shirpur</span>
+                <span class="school-name">Amrishbhai R. Patel School / College</span>
                 <p class="timeline-desc">Completed 12th grade (Science Stream) with focus on Mathematics & Electronics.</p>
             </div>
             <div class="timeline-block scroll-reveal">
                 <div class="timeline-dot"></div>
                 <div class="timeline-year">2021 - 2022</div>
                 <h3 class="timeline-title">Secondary School (SSC)</h3>
-                <span class="school-name">Pankaj Vidhyalaya School , Chopda</span>
+                <span class="school-name">H.R. Patel High School, Shirpur</span>
                 <p class="timeline-desc">Passed 10th standard with distinction. Active participant in school tech labs.</p>
             </div>
         </div>
@@ -169,7 +179,7 @@
 
     <section id="skills">
         <div class="section-header scroll-reveal">
-            <span class="section-tag">Capabilities</span>
+            <span class="section-tag">CAPABILITIES</span>
             <h2 class="section-heading">Tech Arsenal</h2>
         </div>
         <div class="skills-grid">
@@ -190,7 +200,7 @@
 
     <section id="work">
         <div class="section-header scroll-reveal">
-            <span class="section-tag">Portfolio</span>
+            <span class="section-tag">PORTFOLIO</span>
             <h2 class="section-heading">Selected Work</h2>
         </div>
         <div class="projects-container">
@@ -226,7 +236,7 @@
 
     <section id="contact">
         <div class="scroll-reveal">
-            <p class="section-tag">What's Next?</p>
+            <p class="section-tag">WHAT'S NEXT?</p>
             <h1 class="big-cta">LET'S BUILD <br> <span>SOMETHING LEGENDARY.</span></h1>
             <a href="mailto:fusionbyte24@gmail.com" class="cta-btn">
                 <i class="fas fa-envelope" style="margin-right:10px;"></i> fusionbyte24@gmail.com
@@ -240,55 +250,70 @@
     </footer>
 
     <script>
-        // 1. CONTENT PROTECTION
-        document.addEventListener('contextmenu', event => event.preventDefault()); 
-        document.addEventListener('keydown', event => { if (event.ctrlKey && (['c', 'C', 'u', 'U', 's', 'S'].includes(event.key))) event.preventDefault(); });
-        document.addEventListener('copy', (e) => { e.preventDefault(); alert("Protected Content!"); });
-
-        // 2. FIXED CURSOR
-        const dot = document.querySelector(".cursor-dot");
-        const outline = document.querySelector(".cursor-outline");
-        window.addEventListener("mousemove", (e) => {
-            const posX = e.clientX; const posY = e.clientY;
-            dot.style.left = `${posX}px`; dot.style.top = `${posY}px`;
-            outline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+        // 0. CHECK COOKIE ON LOAD
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('hasIntroPlayed') === 'true') {
+                // If visited before, hide screen INSTANTLY
+                document.getElementById('enter-screen').style.display = 'none';
+            }
         });
 
-        // 3. HACKER TEXT SCRAMBLE (ON LOAD)
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        
-        function scramble(element) {
-            let iteration = 0;
-            const originalText = element.dataset.value;
-            clearInterval(element.interval);
-            
-            element.interval = setInterval(() => {
-                element.innerText = originalText
-                    .split("")
-                    .map((letter, index) => {
-                        if(index < iteration) return originalText[index];
-                        return letters[Math.floor(Math.random() * 26)];
-                    })
-                    .join("");
-                
-                if(iteration >= originalText.length) clearInterval(element.interval);
-                iteration += 1 / 3;
-            }, 40); // Speed
+        // 1. ENTER SITE FUNCTION
+        function enterSite() {
+            const screen = document.getElementById('enter-screen');
+            const audio = document.getElementById('welcome-audio');
+
+            // Play Audio
+            audio.play().then(() => {
+                // Audio Success
+                screen.style.opacity = '0';
+                setTimeout(() => { screen.style.display = 'none'; }, 800);
+                // SET COOKIE
+                localStorage.setItem('hasIntroPlayed', 'true');
+            }).catch(error => {
+                // Audio Failed (File missing?)
+                console.error("Audio failed:", error);
+                alert("Audio file 'intro/intro.mp3' not found!");
+                // Still hide screen and set cookie
+                screen.style.display = 'none';
+                localStorage.setItem('hasIntroPlayed', 'true');
+            });
         }
 
-        // TRIGGER ON LOAD
+        // 2. PROTECTION
+        document.addEventListener('contextmenu', event => event.preventDefault()); 
+        document.addEventListener('keydown', event => { if (event.ctrlKey && (['c', 'C', 'u', 'U', 's', 'S'].includes(event.key))) event.preventDefault(); });
+
+        // 3. CURSOR
+        const dot = document.querySelector(".cursor-dot"), outline = document.querySelector(".cursor-outline");
+        window.addEventListener("mousemove", e => {
+            dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`;
+            outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+        });
+
+        // 4. HACKER TEXT (ON LOAD)
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        function scramble(element) {
+            let iteration = 0; const original = element.dataset.value;
+            clearInterval(element.interval);
+            element.interval = setInterval(() => {
+                element.innerText = original.split("").map((l, i) => {
+                    if(i < iteration) return original[i];
+                    return letters[Math.floor(Math.random() * 26)];
+                }).join("");
+                if(iteration >= original.length) clearInterval(element.interval);
+                iteration += 1 / 3;
+            }, 40);
+        }
         window.onload = () => {
-            setTimeout(() => {
-                document.querySelectorAll(".hack-effect").forEach(item => scramble(item));
-            }, 500); // Slight delay for effect
+            // Only run if screen is visible (or logic permits)
+            setTimeout(() => { document.querySelectorAll(".hack-effect").forEach(scramble); }, 500);
         };
 
-        // 4. GSAP ANIMATIONS
+        // 5. GSAP
         gsap.registerPlugin(ScrollTrigger);
-        const tl = gsap.timeline();
-        tl.from("nav", { y: -20, opacity: 0, duration: 1 })
-          .from(".fade-in", { y: 50, opacity: 0, duration: 1, stagger: 0.2 }, "-=0.5");
-
+        gsap.from("nav", { y: -20, opacity: 0, duration: 1 });
+        gsap.from(".fade-in", { y: 50, opacity: 0, duration: 1, stagger: 0.2, delay: 0.5 });
         gsap.utils.toArray(".scroll-reveal").forEach(el => {
             gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, y: 50, opacity: 0, duration: 0.8, ease: "power3.out" });
         });
