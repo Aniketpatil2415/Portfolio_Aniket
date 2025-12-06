@@ -14,70 +14,119 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        :root { --bg-color: #050505; --card-bg: #0f0f0f; --text-main: #ffffff; --text-muted: #888; --accent: #00ff88; --accent-glow: rgba(0, 255, 136, 0.4); }
+        /* --- 1. CORE VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0f0f0f;
+            --text-main: #ffffff;
+            --text-muted: #888;
+            --accent: #00ff88; /* Neon Green */
+            --accent-glow: rgba(0, 255, 136, 0.4);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Poppins', sans-serif; overflow-x: hidden; user-select: text; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            user-select: text; 
+        }
+
         ::selection { background: var(--accent); color: #000; }
-        img { pointer-events: none; user-select: none; }
+        img { pointer-events: none; user-select: none; -webkit-user-drag: none; }
+
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-        /* CURSOR */
+        /* --- 2. CURSOR --- */
         .cursor-dot { width: 8px; height: 8px; background-color: var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99999; pointer-events: none; }
         .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99998; pointer-events: none; transition: width 0.2s, height 0.2s, background 0.2s; }
 
-        /* ENTER SCREEN */
-        #enter-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; z-index: 999999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease-out; }
-        .enter-btn { padding: 20px 60px; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); border: 2px solid var(--accent); background: transparent; text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; transition: 0.3s; position: relative; overflow: hidden; }
+        /* --- 3. ENTER SCREEN --- */
+        #enter-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: #000; z-index: 999999; 
+            display: flex; justify-content: center; align-items: center; flex-direction: column; 
+            transition: opacity 0.8s ease-out; 
+        }
+        .enter-btn { 
+            padding: 20px 60px; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; 
+            color: var(--accent); border: 2px solid var(--accent); background: transparent; 
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; 
+            transition: 0.3s; position: relative; overflow: hidden; 
+        }
         .enter-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 50px var(--accent-glow); }
         .enter-text { margin-top: 20px; color: #666; font-size: 0.9rem; letter-spacing: 1px; }
 
-        /* NAV */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 3px solid var(--accent); box-shadow: 0 5px 20px -5px var(--accent-glow); }
+        /* --- 4. NAV (With Green Line) --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0;
+            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent); /* GREEN LINE */
+            box-shadow: 0 5px 20px -5px var(--accent-glow);
+        }
         .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff !important; text-decoration: none; letter-spacing: -1px; }
         .logo span { color: var(--accent) !important; }
         .nav-links { display: flex; gap: 3rem; }
         .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* HERO SECTION */
+        /* --- 5. HERO SECTION (Updated Layout) --- */
         section { padding: 8rem 10%; position: relative; }
+        
         #hero { 
-            min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            /* CENTER ALIGNMENT & CLOSER GAP */
+            justify-content: center; 
+            gap: 50px; 
             background: radial-gradient(circle at 70% 30%, rgba(0,255,136,0.04) 0%, transparent 50%); 
         }
-        .hero-content { width: 60%; z-index: 2; }
+
+        .hero-content { width: 55%; z-index: 2; }
+
         .name-highlight { color: var(--accent); font-weight: 800; text-transform: uppercase; }
         .hero-title { font-size: 6rem; line-height: 0.9; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; letter-spacing: -3px; font-family: 'Space Grotesk'; }
         .hack-effect { display: inline-block; color: #fff; }
         .hero-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
+        
         .cta-btn { display: inline-flex; padding: 18px 45px; background: transparent; border: 1px solid var(--accent); color: var(--accent); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s; }
         .cta-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); z-index: -1; transition: 0.4s; }
         .cta-btn:hover::before { width: 100%; }
         .cta-btn:hover { color: #000; box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* 3D LOGO CONTAINER */
+        /* --- 3D LOGO CONTAINER --- */
         .hero-logo-container {
-            width: 35%; height: 400px; display: flex; justify-content: center; align-items: center;
-            perspective: 1000px; z-index: 1;
+            width: 400px; height: 400px;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 1200px; /* High perspective for 3D look */
+            z-index: 1;
         }
 
-        /* UPDATED 3D LOGO STYLE (Transparent & Thick) */
+        /* 3D LOGO STYLE (THICK EFFECT) */
         .hero-3d-logo {
-            width: 300px; height: auto; /* Maintain aspect ratio */
+            width: 320px; 
+            height: auto;
             transform-style: preserve-3d;
-            /* Layered shadows to create "Thickness/Depth" */
+            /* Layered Shadows to create "Thickness" */
             filter: 
-                drop-shadow(1px 1px 0px #00aa55)
-                drop-shadow(2px 2px 0px #00aa55)
-                drop-shadow(3px 3px 0px #00aa55)
-                drop-shadow(4px 4px 0px #00aa55)
-                drop-shadow(5px 5px 10px rgba(0, 255, 136, 0.3));
+                drop-shadow(1px 1px 0px #007744)
+                drop-shadow(2px 2px 0px #007744)
+                drop-shadow(3px 3px 0px #007744)
+                drop-shadow(4px 4px 0px #007744)
+                drop-shadow(5px 5px 0px #007744)
+                drop-shadow(0 10px 20px rgba(0, 255, 136, 0.2));
         }
 
-        /* TIMELINE, SKILLS, PROJECTS, FOOTER Styles (Unchanged) */
+        /* --- 6. OTHER SECTIONS (Unchanged) --- */
         .section-header { margin-bottom: 4rem; }
         .section-tag { color: var(--accent); font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; display: block; margin-bottom: 10px; }
         .section-heading { font-size: 3rem; font-weight: 700; }
@@ -112,16 +161,18 @@
         .big-cta { font-size: 4rem; font-weight: 800; color: #fff; margin-bottom: 2rem; }
         .big-cta span { color: var(--accent); }
 
+        /* --- 7. FOOTER (Updated Text) --- */
         footer { padding: 3rem 8%; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
         .footer-left h3 { color: #888; font-size: 1rem; font-weight: 500; letter-spacing: 1px; }
         .footer-right h3 { color: #fff; font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
         .footer-right h3 span { color: var(--accent); font-size: 2rem; line-height: 0; position: relative; top: 5px;}
 
         @media (max-width: 768px) {
-            .hero-title { font-size: 3.5rem; } .nav-links { display: none; } section { padding: 5rem 5%; }
-            #hero { flex-direction: column; text-align: center; }
-            .hero-content { width: 100%; margin-bottom: 3rem; }
+            #hero { flex-direction: column; text-align: center; gap: 30px; }
+            .hero-content { width: 100%; }
             .hero-logo-container { width: 100%; height: 300px; }
+            .hero-3d-logo { width: 250px; height: auto; }
+            .hero-title { font-size: 3.5rem; } .nav-links { display: none; } section { padding: 5rem 5%; }
             footer { flex-direction: column; gap: 1rem; text-align: center; } .big-num { font-size: 5rem; }
             .cursor-dot, .cursor-outline { display: none; } * { cursor: auto; }
         }
@@ -284,24 +335,29 @@
             const screen = document.getElementById('enter-screen');
             const audio = document.getElementById('welcome-audio');
             audio.play().then(() => {
-                screen.style.opacity = '0'; setTimeout(() => { screen.style.display = 'none'; }, 800);
+                screen.style.opacity = '0';
+                setTimeout(() => { screen.style.display = 'none'; }, 800);
                 localStorage.setItem('hasIntroPlayed', 'true');
             }).catch(error => {
-                console.error("Audio failed:", error); alert("Audio file 'intro/intro.mp3' not found!");
-                screen.style.display = 'none'; localStorage.setItem('hasIntroPlayed', 'true');
+                console.error("Audio failed:", error);
+                alert("Audio file 'intro/intro.mp3' not found!");
+                screen.style.display = 'none';
+                localStorage.setItem('hasIntroPlayed', 'true');
             });
         }
 
-        // 2. PROTECTION & CURSOR
+        // 2. PROTECTION
         document.addEventListener('contextmenu', event => event.preventDefault()); 
         document.addEventListener('keydown', event => { if (event.ctrlKey && (['c', 'C', 'u', 'U', 's', 'S'].includes(event.key))) event.preventDefault(); });
+
+        // 3. CURSOR
         const dot = document.querySelector(".cursor-dot"), outline = document.querySelector(".cursor-outline");
         window.addEventListener("mousemove", e => {
             dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`;
             outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
         });
 
-        // 3. HACKER TEXT
+        // 4. HACKER TEXT
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         function scramble(element) {
             let iteration = 0; const original = element.dataset.value;
@@ -317,7 +373,7 @@
         }
         window.onload = () => { setTimeout(() => { document.querySelectorAll(".hack-effect").forEach(scramble); }, 500); };
 
-        // 4. GSAP ANIMATIONS
+        // 5. GSAP ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
         gsap.from("nav", { y: -20, opacity: 0, duration: 1 });
         gsap.from(".fade-in", { y: 50, opacity: 0, duration: 1, stagger: 0.2, delay: 0.5 });
@@ -325,13 +381,29 @@
             gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, y: 50, opacity: 0, duration: 0.8, ease: "power3.out" });
         });
 
-        // 5. 3D LOGO ANIMATION (SPIN & SCROLL UP)
+        // 6. 3D LOGO ANIMATION (Y-Axis Spin & Scroll Up)
+        
+        // A. IDLE ROTATION (Coin Spin)
         gsap.to(".hero-3d-logo", {
-            rotationY: 360, rotationX: 360, duration: 10, repeat: -1, ease: "linear"
+            rotationY: 360,
+            rotationX: 10,  // Slight tilt
+            duration: 15,
+            repeat: -1,
+            ease: "linear"
         });
+
+        // B. SCROLL ACTION
         gsap.to(".hero-3d-logo", {
-            y: -200, opacity: 0,
-            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 }
+            y: -250,           // Move UP
+            scale: 0.8,        // Move BACK/Small
+            rotationY: "+=180", // Fast Spin
+            opacity: 0,        // Fade Out
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
+            }
         });
     </script>
 </body>
