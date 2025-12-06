@@ -52,19 +52,60 @@
         .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* HERO & SECTIONS */
+        /* HERO SECTION (UPDATED FOR LOGO) */
         section { padding: 8rem 10%; position: relative; }
-        #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle at 70% 30%, rgba(0,255,136,0.04) 0%, transparent 50%); }
+        
+        #hero { 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; /* Pushes content and logo apart */
+            background: radial-gradient(circle at 70% 30%, rgba(0,255,136,0.04) 0%, transparent 50%); 
+        }
+
+        .hero-content {
+            width: 60%; /* Takes up left side */
+            z-index: 2;
+        }
+
         .name-highlight { color: var(--accent); font-weight: 800; text-transform: uppercase; }
-        .hero-title { font-size: 7rem; line-height: 0.9; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; letter-spacing: -3px; font-family: 'Space Grotesk'; }
+        
+        .hero-title { font-size: 6rem; line-height: 0.9; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; letter-spacing: -3px; font-family: 'Space Grotesk'; }
         .hack-effect { display: inline-block; color: #fff; }
         .hero-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
+        
         .cta-btn { display: inline-flex; padding: 18px 45px; background: transparent; border: 1px solid var(--accent); color: var(--accent); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s; }
         .cta-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); z-index: -1; transition: 0.4s; }
         .cta-btn:hover::before { width: 100%; }
         .cta-btn:hover { color: #000; box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* TIMELINE, SKILLS, PROJECTS, FOOTER Styles */
+        /* 3D LOGO CONTAINER */
+        .hero-logo-container {
+            width: 35%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* Essential for 3D effect */
+            z-index: 1;
+        }
+
+        /* THE 3D LOGO ITSELF */
+        .hero-3d-logo {
+            width: 300px;
+            height: 300px;
+            background-image: url('FB-logo.jpg'); /* YOUR LOGO FILE NAME */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            /* Circular Mask (Optional - makes it look like a coin/badge) */
+            border-radius: 50%; 
+            /* 3D Properties */
+            transform-style: preserve-3d;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.1);
+        }
+
+        /* TIMELINE, SKILLS, PROJECTS, FOOTER Styles (Unchanged) */
         .section-header { margin-bottom: 4rem; }
         .section-tag { color: var(--accent); font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; display: block; margin-bottom: 10px; }
         .section-heading { font-size: 3rem; font-weight: 700; }
@@ -106,6 +147,9 @@
 
         @media (max-width: 768px) {
             .hero-title { font-size: 3.5rem; } .nav-links { display: none; } section { padding: 5rem 5%; }
+            #hero { flex-direction: column; text-align: center; }
+            .hero-content { width: 100%; margin-bottom: 3rem; }
+            .hero-logo-container { width: 100%; height: 300px; }
             footer { flex-direction: column; gap: 1rem; text-align: center; } .big-num { font-size: 5rem; }
             .cursor-dot, .cursor-outline { display: none; } * { cursor: auto; }
         }
@@ -134,16 +178,22 @@
     </nav>
 
     <section id="hero">
-        <p class="section-tag fade-in">Hi, I am <span class="name-highlight">ANIKET PATIL</span></p>
-        <h1 class="hero-title">
-            <div class="fade-in"><span class="hack-effect" data-value="CREATIVE">CREATIVE</span></div>
-            <div class="fade-in"><span class="hack-effect" data-value="DEVELOPER">DEVELOPER</span><span>.</span></div>
-        </h1>
-        <p class="hero-desc fade-in">
-            Passionate about coding, game logic, and building digital experiences. Specialized in Web Development & 3D Rendering.
-        </p>
-        <div class="fade-in">
-            <a href="#work" class="cta-btn">View My Work</a>
+        <div class="hero-content">
+            <p class="section-tag fade-in">Hi, I am <span class="name-highlight">ANIKET PATIL</span></p>
+            <h1 class="hero-title">
+                <div class="fade-in"><span class="hack-effect" data-value="CREATIVE">CREATIVE</span></div>
+                <div class="fade-in"><span class="hack-effect" data-value="DEVELOPER">DEVELOPER</span><span>.</span></div>
+            </h1>
+            <p class="hero-desc fade-in">
+                Passionate about coding, game logic, and building digital experiences. Specialized in Web Development & 3D Rendering.
+            </p>
+            <div class="fade-in">
+                <a href="#work" class="cta-btn">View My Work</a>
+            </div>
+        </div>
+
+        <div class="hero-logo-container fade-in">
+            <div class="hero-3d-logo"></div>
         </div>
     </section>
 
@@ -253,7 +303,6 @@
         // 0. CHECK COOKIE ON LOAD
         window.addEventListener('load', () => {
             if (localStorage.getItem('hasIntroPlayed') === 'true') {
-                // If visited before, hide screen INSTANTLY
                 document.getElementById('enter-screen').style.display = 'none';
             }
         });
@@ -263,18 +312,13 @@
             const screen = document.getElementById('enter-screen');
             const audio = document.getElementById('welcome-audio');
 
-            // Play Audio
             audio.play().then(() => {
-                // Audio Success
                 screen.style.opacity = '0';
                 setTimeout(() => { screen.style.display = 'none'; }, 800);
-                // SET COOKIE
                 localStorage.setItem('hasIntroPlayed', 'true');
             }).catch(error => {
-                // Audio Failed (File missing?)
                 console.error("Audio failed:", error);
                 alert("Audio file 'intro/intro.mp3' not found!");
-                // Still hide screen and set cookie
                 screen.style.display = 'none';
                 localStorage.setItem('hasIntroPlayed', 'true');
             });
@@ -291,7 +335,7 @@
             outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
         });
 
-        // 4. HACKER TEXT (ON LOAD)
+        // 4. HACKER TEXT
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         function scramble(element) {
             let iteration = 0; const original = element.dataset.value;
@@ -306,16 +350,37 @@
             }, 40);
         }
         window.onload = () => {
-            // Only run if screen is visible (or logic permits)
             setTimeout(() => { document.querySelectorAll(".hack-effect").forEach(scramble); }, 500);
         };
 
-        // 5. GSAP
+        // 5. GSAP ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
         gsap.from("nav", { y: -20, opacity: 0, duration: 1 });
         gsap.from(".fade-in", { y: 50, opacity: 0, duration: 1, stagger: 0.2, delay: 0.5 });
         gsap.utils.toArray(".scroll-reveal").forEach(el => {
             gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, y: 50, opacity: 0, duration: 0.8, ease: "power3.out" });
+        });
+
+        // 6. 3D LOGO ROTATION & SCROLL UP
+        // Continuous Rotation (Spinning)
+        gsap.to(".hero-3d-logo", {
+            rotationY: 360,
+            rotationX: 360,
+            duration: 10,
+            repeat: -1,
+            ease: "linear"
+        });
+
+        // Move Up on Scroll
+        gsap.to(".hero-3d-logo", {
+            y: -200, // Moves up by 200px
+            opacity: 0, // Fades out as it goes up
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1 // Smooth scrolling effect
+            }
         });
     </script>
 </body>
