@@ -29,18 +29,8 @@
         .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; z-index: 99998; pointer-events: none; transition: width 0.2s, height 0.2s, background 0.2s; }
 
         /* ENTER SCREEN */
-        #enter-screen { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: #000; z-index: 999999; 
-            display: flex; justify-content: center; align-items: center; flex-direction: column; 
-            transition: opacity 0.8s ease-out; 
-        }
-        .enter-btn { 
-            padding: 20px 60px; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; 
-            color: var(--accent); border: 2px solid var(--accent); background: transparent; 
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; 
-            transition: 0.3s; position: relative; overflow: hidden; 
-        }
+        #enter-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; z-index: 999999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease-out; }
+        .enter-btn { padding: 20px 60px; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); border: 2px solid var(--accent); background: transparent; text-transform: uppercase; letter-spacing: 2px; cursor: pointer !important; transition: 0.3s; position: relative; overflow: hidden; }
         .enter-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 50px var(--accent-glow); }
         .enter-text { margin-top: 20px; color: #666; font-size: 0.9rem; letter-spacing: 1px; }
 
@@ -52,28 +42,17 @@
         .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* HERO SECTION (UPDATED FOR LOGO) */
+        /* HERO SECTION */
         section { padding: 8rem 10%; position: relative; }
-        
         #hero { 
-            min-height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; /* Pushes content and logo apart */
+            min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
             background: radial-gradient(circle at 70% 30%, rgba(0,255,136,0.04) 0%, transparent 50%); 
         }
-
-        .hero-content {
-            width: 60%; /* Takes up left side */
-            z-index: 2;
-        }
-
+        .hero-content { width: 60%; z-index: 2; }
         .name-highlight { color: var(--accent); font-weight: 800; text-transform: uppercase; }
-        
         .hero-title { font-size: 6rem; line-height: 0.9; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; letter-spacing: -3px; font-family: 'Space Grotesk'; }
         .hack-effect { display: inline-block; color: #fff; }
         .hero-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
-        
         .cta-btn { display: inline-flex; padding: 18px 45px; background: transparent; border: 1px solid var(--accent); color: var(--accent); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s; }
         .cta-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--accent); z-index: -1; transition: 0.4s; }
         .cta-btn:hover::before { width: 100%; }
@@ -81,28 +60,21 @@
 
         /* 3D LOGO CONTAINER */
         .hero-logo-container {
-            width: 35%;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px; /* Essential for 3D effect */
-            z-index: 1;
+            width: 35%; height: 400px; display: flex; justify-content: center; align-items: center;
+            perspective: 1000px; z-index: 1;
         }
 
-        /* THE 3D LOGO ITSELF */
+        /* UPDATED 3D LOGO STYLE (Transparent & Thick) */
         .hero-3d-logo {
-            width: 300px;
-            height: 300px;
-            background-image: url('FB-logo.jpg'); /* YOUR LOGO FILE NAME */
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            /* Circular Mask (Optional - makes it look like a coin/badge) */
-            border-radius: 50%; 
-            /* 3D Properties */
+            width: 300px; height: auto; /* Maintain aspect ratio */
             transform-style: preserve-3d;
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.1);
+            /* Layered shadows to create "Thickness/Depth" */
+            filter: 
+                drop-shadow(1px 1px 0px #00aa55)
+                drop-shadow(2px 2px 0px #00aa55)
+                drop-shadow(3px 3px 0px #00aa55)
+                drop-shadow(4px 4px 0px #00aa55)
+                drop-shadow(5px 5px 10px rgba(0, 255, 136, 0.3));
         }
 
         /* TIMELINE, SKILLS, PROJECTS, FOOTER Styles (Unchanged) */
@@ -193,7 +165,7 @@
         </div>
 
         <div class="hero-logo-container fade-in">
-            <div class="hero-3d-logo"></div>
+            <img src="FB-logo.png" alt="Fusion Byte Logo" class="hero-3d-logo">
         </div>
     </section>
 
@@ -300,42 +272,36 @@
     </footer>
 
     <script>
-        // 0. CHECK COOKIE ON LOAD
+        // 0. CHECK COOKIE
         window.addEventListener('load', () => {
             if (localStorage.getItem('hasIntroPlayed') === 'true') {
                 document.getElementById('enter-screen').style.display = 'none';
             }
         });
 
-        // 1. ENTER SITE FUNCTION
+        // 1. ENTER SITE
         function enterSite() {
             const screen = document.getElementById('enter-screen');
             const audio = document.getElementById('welcome-audio');
-
             audio.play().then(() => {
-                screen.style.opacity = '0';
-                setTimeout(() => { screen.style.display = 'none'; }, 800);
+                screen.style.opacity = '0'; setTimeout(() => { screen.style.display = 'none'; }, 800);
                 localStorage.setItem('hasIntroPlayed', 'true');
             }).catch(error => {
-                console.error("Audio failed:", error);
-                alert("Audio file 'intro/intro.mp3' not found!");
-                screen.style.display = 'none';
-                localStorage.setItem('hasIntroPlayed', 'true');
+                console.error("Audio failed:", error); alert("Audio file 'intro/intro.mp3' not found!");
+                screen.style.display = 'none'; localStorage.setItem('hasIntroPlayed', 'true');
             });
         }
 
-        // 2. PROTECTION
+        // 2. PROTECTION & CURSOR
         document.addEventListener('contextmenu', event => event.preventDefault()); 
         document.addEventListener('keydown', event => { if (event.ctrlKey && (['c', 'C', 'u', 'U', 's', 'S'].includes(event.key))) event.preventDefault(); });
-
-        // 3. CURSOR
         const dot = document.querySelector(".cursor-dot"), outline = document.querySelector(".cursor-outline");
         window.addEventListener("mousemove", e => {
             dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`;
             outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
         });
 
-        // 4. HACKER TEXT
+        // 3. HACKER TEXT
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         function scramble(element) {
             let iteration = 0; const original = element.dataset.value;
@@ -349,11 +315,9 @@
                 iteration += 1 / 3;
             }, 40);
         }
-        window.onload = () => {
-            setTimeout(() => { document.querySelectorAll(".hack-effect").forEach(scramble); }, 500);
-        };
+        window.onload = () => { setTimeout(() => { document.querySelectorAll(".hack-effect").forEach(scramble); }, 500); };
 
-        // 5. GSAP ANIMATIONS
+        // 4. GSAP ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
         gsap.from("nav", { y: -20, opacity: 0, duration: 1 });
         gsap.from(".fade-in", { y: 50, opacity: 0, duration: 1, stagger: 0.2, delay: 0.5 });
@@ -361,26 +325,13 @@
             gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, y: 50, opacity: 0, duration: 0.8, ease: "power3.out" });
         });
 
-        // 6. 3D LOGO ROTATION & SCROLL UP
-        // Continuous Rotation (Spinning)
+        // 5. 3D LOGO ANIMATION (SPIN & SCROLL UP)
         gsap.to(".hero-3d-logo", {
-            rotationY: 360,
-            rotationX: 360,
-            duration: 10,
-            repeat: -1,
-            ease: "linear"
+            rotationY: 360, rotationX: 360, duration: 10, repeat: -1, ease: "linear"
         });
-
-        // Move Up on Scroll
         gsap.to(".hero-3d-logo", {
-            y: -200, // Moves up by 200px
-            opacity: 0, // Fades out as it goes up
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: 1 // Smooth scrolling effect
-            }
+            y: -200, opacity: 0,
+            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1 }
         });
     </script>
 </body>
