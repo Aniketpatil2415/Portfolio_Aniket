@@ -6,6 +6,8 @@
     <title>Project Details | Fusion Byte</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
         :root { --bg: #050505; --text: #e0e0e0; --accent: #00ff88; --card-bg: #0f0f0f; --accent-glow: rgba(0, 255, 136, 0.4); }
@@ -13,45 +15,39 @@
         body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-serif; user-select: text; }
         ::selection { background: var(--accent); color: #000; }
 
-        /* CURSOR */
+        #trans-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
+        .trans-logo { position: absolute; width: 400px; opacity: 0.2; top: -50%; right: -50%; filter: drop-shadow(0 0 20px var(--accent)); }
+
         .cursor-dot { width: 8px; height: 8px; background: var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 99999; }
         .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); position: fixed; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 99998; transition: width 0.2s; }
 
-        /* NAV WITH GREEN LINE */
-        nav { 
-            padding: 1.5rem 10%; display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 2px solid var(--accent); background: rgba(5,5,5,0.9); backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px -10px var(--accent-glow);
-        }
+        nav { padding: 1.5rem 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--accent); background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); box-shadow: 0 4px 20px -10px var(--accent-glow); position: fixed; width: 100%; top: 0; z-index: 1000; }
         .logo { font-family: 'Space Grotesk'; font-weight: 800; font-size: 1.5rem; color: #fff; text-decoration: none; }
         .logo span { color: var(--accent); }
         .back-link { color: #fff; text-decoration: none; font-weight:600; transition: 0.3s; }
         .back-link:hover { color: var(--accent); }
 
-        .container { max-width: 800px; margin: 4rem auto; padding: 0 20px; min-height: 60vh; }
+        .container { max-width: 800px; margin: 8rem auto 4rem; padding: 0 20px; min-height: 60vh; }
         .category { color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
         h1 { font-size: 3rem; font-weight: 800; margin: 1rem 0 2rem; color: #fff; }
-
         .info-box { background: var(--card-bg); padding: 2rem; border-radius: 10px; border: 1px solid #333; }
         .info-box p { color: #aaa; margin-bottom: 20px; line-height: 1.6; }
-        
         .tag { background: rgba(0,255,136,0.1); color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--accent); display:inline-block; margin-right:10px; margin-bottom:20px; }
-
         .github-btn { display: block; width: 100%; background: var(--accent); color: #000; text-align: center; padding: 18px; font-weight: 700; text-decoration: none; border-radius: 5px; text-transform: uppercase; transition: 0.3s; }
         .github-btn:hover { box-shadow: 0 0 20px rgba(0,255,136,0.4); }
 
-        /* STYLISH FOOTER */
-        footer { 
-            padding: 3rem 8%; border-top: 1px solid #222; 
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .footer-left h3 { color: #fff; font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; }
-        .footer-right h3 { color: var(--accent); font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; }
+        footer { padding: 3rem 8%; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .footer-left h3 { color: #888; font-size: 1rem; font-weight: 500; letter-spacing: 1px; }
+        .footer-right h3 { color: #fff; font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .footer-right h3 span { color: var(--accent); font-size: 2rem; line-height: 0; position: relative; top: 5px;}
 
         @media (max-width: 768px) { footer { flex-direction: column; gap: 1rem; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <div id="trans-overlay"><img src="FB-logo.png" alt="Transition Logo" class="trans-logo"></div>
+
     <div class="cursor-dot"></div> <div class="cursor-outline"></div>
 
     <nav>
@@ -62,45 +58,42 @@
     <div class="container">
         <span class="category">Web Development</span>
         <h1>Document Locker System</h1>
-        
         <div><span class="tag">HTML / CSS</span><span class="tag">PHP</span><span class="tag">MySQL</span></div>
-
         <div class="info-box">
             <h3 style="color:#fff; margin-bottom:10px;">About Project</h3>
-            <p>
-                This is a secure web application designed to help users store their important personal documents (like Aadhar, PAN card) in a digital format with User Authentication.
-            </p>
-            
+            <p>This is a secure web application designed to help users store their important personal documents (like Aadhar, PAN card) in a digital format with User Authentication.</p>
             <h3 style="color:#fff; margin-bottom:10px;">Key Features</h3>
-            <p>
-                • Secure Login/Signup System<br>
-                • Encrypted File Uploads<br>
-                • Admin Dashboard
-            </p>
-
-            <a href="https://github.com/aniketpatil/your-repo-link" target="_blank" class="github-btn">
-                <i class="fab fa-github"></i> View Source Code
-            </a>
+            <p>• Secure Login/Signup System<br>• Encrypted File Uploads<br>• Admin Dashboard</p>
+            <a href="https://github.com/aniketpatil/your-repo-link" target="_blank" class="github-btn"><i class="fab fa-github"></i> View Source Code</a>
         </div>
     </div>
 
     <footer>
-        <div class="footer-left"><h3>ANIKET PATIL</h3></div>
-        <div class="footer-right"><h3>FUSION BYTE</h3></div>
+        <div class="footer-left"><h3>Copyright 2025 Aniket's Portfolio</h3></div>
+        <div class="footer-right"><h3>FUSION BYTE<span>.</span></h3></div>
     </footer>
 
     <script>
-        // PROTECTION
+        document.querySelectorAll('a').forEach(link => {
+            if(link.href.includes('.html') && !link.href.includes('#')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetUrl = this.getAttribute('href');
+                    const overlay = document.getElementById('trans-overlay');
+                    const logo = document.querySelector('.trans-logo');
+                    overlay.style.pointerEvents = "all";
+                    gsap.to(overlay, { opacity: 1, duration: 0.1 });
+                    gsap.fromTo(logo, { top: "-50%", right: "-50%", opacity: 1, scale: 1 }, { top: "150%", right: "150%", duration: 1.2, ease: "power4.inOut", rotation: -45, onComplete: () => { window.location.href = targetUrl; } });
+                });
+            }
+        });
+
         document.addEventListener('contextmenu', event => event.preventDefault()); 
         document.addEventListener('keydown', event => { if (event.ctrlKey && (['c', 'C', 'u', 'U', 's', 'S'].includes(event.key))) event.preventDefault(); });
         document.addEventListener('copy', (e) => { e.preventDefault(); alert("Protected Content!"); });
 
-        // CURSOR
         const dot = document.querySelector(".cursor-dot"), outline = document.querySelector(".cursor-outline");
-        window.addEventListener("mousemove", e => {
-            dot.style.left = e.clientX + "px"; dot.style.top = e.clientY + "px";
-            outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
-        });
+        window.addEventListener("mousemove", e => { dot.style.left = e.clientX + "px"; dot.style.top = e.clientY + "px"; outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" }); });
     </script>
 </body>
 </html>
